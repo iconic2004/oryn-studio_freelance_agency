@@ -1,0 +1,8 @@
+import { ArrowUpRight } from "lucide-react";
+import { Reveal } from "./Reveal";
+import { process } from "@/lib/data";
+import { AnimatedText } from "./AnimatedText";
+
+export function About() {
+  return <><section id="about" className="about-section page-wrap"><Reveal><p className="eyebrow">04 / THE STUDIO</p><div className="about-layout"><h2><AnimatedText lines={[<span key="about-heading">One studio.<br /><em>Everything</em><br />your brand needs.</span>]} /></h2><div className="about-side"><p>ORYN is a creative digital studio built for brands that refuse to blend in.</p><div className="about-equation">DESIGN <span>×</span> TECHNOLOGY <span>×</span><br /> CONTENT <span>×</span> GROWTH</div><a href="#contact" className="text-link">Meet the studio <ArrowUpRight size={15} /></a></div></div></Reveal></section><section className="process-section page-wrap"><div className="section-intro process-intro"><Reveal><p className="eyebrow">05 / OUR PROCESS</p><h2><AnimatedText lines={[<span key="process-heading">How we <em>work.</em></span>]} /></h2></Reveal></div><div className="process-grid">{process.map(([number, title, description], i) => <Reveal key={number} delay={i * 0.05}><div className="process-item"><span>{number}</span><div><h3>{title}</h3><p>{description}</p></div></div></Reveal>)}</div></section></>;
+}
