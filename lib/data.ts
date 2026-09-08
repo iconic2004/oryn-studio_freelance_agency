@@ -1,5 +1,12 @@
 import ksCoverImg from "@/app/assets/ks-cover-img.png";
 import designerMonkCoverImg from "@/app/assets/the-desM-cover-img.png";
+import visualImageOne from "@/app/assets/visual/Screenshot 2026-09-04 224630.png";
+import visualImageTwo from "@/app/assets/visual/Screenshot 2026-09-04 224707.png";
+import visualImageThree from "@/app/assets/visual/Screenshot 2026-09-04 224731.png";
+import visualImageFour from "@/app/assets/visual/Screenshot 2026-09-04 224803.png";
+import visualCampaignPoster from "@/app/assets/visual/campaign poster.jpg";
+import visualCampaignPosterTwo from "@/app/assets/visual/campaign poster2.jpg";
+import visualStory from "@/app/assets/visual/story.png";
 
 export const services = [
   { number: "01", label: "DIGITAL", slug: "digital", title: "Websites & digital experiences engineered to perform.", tone: "lavender" },
@@ -14,6 +21,7 @@ export type PortfolioProject = {
   description: string;
   categories: string;
   image?: string;
+  images?: string[];
   video?: string;
   url?: string;
   year?: string;
@@ -67,6 +75,15 @@ export const portfolioCategories: Record<string, PortfolioCategory> = {
         title: "Graphic Designing",
         description: "Brand identity, content and social design work.",
         categories: "Brand Identity / Content / Social",
+        images: [
+          visualImageOne.src,
+          visualImageTwo.src,
+          visualImageThree.src,
+          visualImageFour.src,
+          visualCampaignPoster.src,
+          visualCampaignPosterTwo.src,
+          visualStory.src,
+        ],
         type: "Visual design",
       },
     ],

@@ -8,6 +8,7 @@ import { AnimatedText } from "./AnimatedText";
 import { WaterRevealText } from "./WaterRevealText";
 import ksCoverImg from "@/app/assets/ks-cover-img.png";
 import designerMonkCoverImg from "@/app/assets/the-desM-cover-img.png";
+import graphicDesignImg from "@/app/assets/graphic-design.png";
 
 export function Work() {
   return (
@@ -46,9 +47,11 @@ export function Work() {
               href={
                 i === 0
                   ? "https://knownstrangers.in/"
-                  : i === 2
-                    ? "https://thedesignermonk.in/"
-                    : "#contact"
+                  : i === 1
+                    ? "/services/visual"
+                    : i === 2
+                      ? "https://thedesignermonk.in/"
+                      : "#contact"
               }
               target={i === 0 || i === 2 ? "_blank" : undefined}
               rel={
@@ -64,6 +67,19 @@ export function Work() {
                   <img
                     src={ksCoverImg.src}
                     alt="KnownStrangers website"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                ) : i === 1 ? (
+                  <img
+                    src={graphicDesignImg.src}
+                    alt="Graphic design work"
                     style={{
                       position: "absolute",
                       inset: 0,
