@@ -1,5 +1,6 @@
 import ksCoverImg from "@/app/assets/ks-cover-img.png";
 import designerMonkCoverImg from "@/app/assets/the-desM-cover-img.png";
+import clutchGgCoverImg from "@/app/assets/clutchgg-cover-img.png";
 import visualImageOne from "@/app/assets/visual/Screenshot 2026-09-04 224630.png";
 import visualImageTwo from "@/app/assets/visual/Screenshot 2026-09-04 224707.png";
 import visualImageThree from "@/app/assets/visual/Screenshot 2026-09-04 224731.png";
@@ -23,6 +24,7 @@ export type PortfolioProject = {
   image?: string;
   images?: string[];
   video?: string;
+  videos?: string[];
   url?: string;
   year?: string;
   client?: string;
@@ -62,6 +64,14 @@ export const portfolioCategories: Record<string, PortfolioCategory> = {
         url: "https://thedesignermonk.in/",
         type: "Website",
       },
+      {
+        title: "Clutch.GG",
+        description: "A digital experience built for the competitive gaming community.",
+        categories: "Gaming / Tournament Hosting Platform / Digital Experience ",
+        image: clutchGgCoverImg.src,
+        url: "https://clutchgg.in/",
+        type: "Website",
+      },
     ],
   },
   visual: {
@@ -88,14 +98,37 @@ export const portfolioCategories: Record<string, PortfolioCategory> = {
       },
     ],
   },
-  content: {
-    number: "03",
-    label: "CONTENT",
-    title: "Content / Production",
-    description: "Edited video, reels and motion-led content made for attention and action.",
-    tone: "coral",
-    projects: [],
-  },
+ content: {
+  number: "03",
+  label: "CONTENT",
+  title: "Content / Production",
+  description:
+    "Edited video, reels and motion-led content made for attention and action.",
+  tone: "coral",
+  projects: [
+    {
+      title: "Content & Reels",
+      description:
+        "Edited videos, reels and motion-led content created for brands, campaigns and digital platforms.",
+      categories: "Video Editing / Reels / Motion Content",
+      videos: [
+        "/assets/content/Video%20Project.mp4",
+        "/assets/content/Video-2662.mp4",
+        "/assets/content/Video-8655.mp4",
+        "/assets/content/Video-28459.mp4",
+        "/assets/content/Video-33128.mp4",
+        "/assets/content/Video-53016.mp4",
+        "/assets/content/Video-60071.mp4",
+        "/assets/content/Video-70834.mp4",
+        "/assets/content/Video-87304.mp4",
+        "/assets/content/content-10.mp4",
+        "/assets/content/content-11.mp4",
+        "/assets/content/content-12.mp4",
+      ],
+      type: "Video & Content",
+    },
+  ],
+},
   social: {
     number: "04",
     label: "SOCIAL",
