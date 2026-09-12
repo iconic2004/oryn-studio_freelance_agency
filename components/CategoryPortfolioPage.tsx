@@ -26,6 +26,9 @@ export function CategoryPortfolioPage({ slug }: { slug: string }) {
   const [selectedMedia, setSelectedMedia] =
     useState<SelectedMedia | null>(null);
 
+  const isSocial = slug === "social";
+  const isGrowth = slug === "growth";
+
   useEffect(() => {
     if (!selectedMedia) return;
 
@@ -50,6 +53,10 @@ export function CategoryPortfolioPage({ slug }: { slug: string }) {
 
   return (
     <main className="category-page">
+      {/* =====================================================
+          HERO
+      ====================================================== */}
+
       <section className="category-hero page-wrap">
         <Link href="/#services" className="text-link category-back-link">
           <ArrowLeft size={15} />
@@ -86,168 +93,479 @@ export function CategoryPortfolioPage({ slug }: { slug: string }) {
         </div>
       </section>
 
-      <section className="category-work page-wrap">
-        <div className="category-work-header">
-          <p className="eyebrow">HERE IS OUR WORK</p>
+      {/* =====================================================
+          GROWTH PAGE
+      ====================================================== */}
 
-          <p className="category-work-count">
-            {category.projects.length.toString().padStart(2, "0")} PROJECTS
-          </p>
-        </div>
+      {isGrowth ? (
+        <section className="category-work page-wrap">
+          <div className="growth-page-content">
+            {/* =================================================
+                WHAT WE DO
+            ================================================== */}
 
-        {category.projects.length > 0 ? (
-          <div className="category-project-grid">
-            {category.projects.map((project, index) => {
-              const content = (
-                <>
-                  <div
-                    className={`category-project-visual visual-${category.tone}`}
+            <section className="growth-section growth-services-section">
+              <div className="growth-section-header">
+                <p className="eyebrow">WHAT WE DO</p>
+
+                <p className="growth-section-count">
+                  04 SERVICES
+                </p>
+              </div>
+
+              <div className="growth-services">
+                {[
+                  {
+                    number: "01",
+                    title: "Performance Marketing",
+                    description:
+                      "Paid campaigns built to reach the right audience, generate demand and drive measurable action.",
+                  },
+                  {
+                    number: "02",
+                    title: "SEO & Organic Growth",
+                    description:
+                      "Search strategies that help your brand become easier to discover and harder to forget.",
+                  },
+                  {
+                    number: "03",
+                    title: "Conversion & Funnels",
+                    description:
+                      "Landing pages, funnels and conversion systems designed to turn attention into action.",
+                  },
+                  {
+                    number: "04",
+                    title: "Campaign Strategy",
+                    description:
+                      "Campaigns built around the right audience, message, creative and channel.",
+                  },
+                ].map((service, index) => (
+                  <Reveal
+                    key={service.number}
+                    delay={index * 0.08}
                   >
-                    {project.videos?.length ? (
-                      <div className="category-project-video-gallery">
-                        {project.videos.map((video, videoIndex) => (
-                          <button
-                            key={video}
-                            type="button"
-                            className="category-project-video-button"
-                            onClick={() =>
-                              setSelectedMedia({
-                                type: "video",
-                                src: video,
-                                alt: `${project.title} video preview ${
-                                  videoIndex + 1
-                                }`,
-                              })
-                            }
-                            aria-label={`Open ${project.title} video ${
-                              videoIndex + 1
-                            }`}
-                          >
-                            <video
-                              src={video}
-                              muted
-                              loop
-                              autoPlay
-                              playsInline
-                              preload="metadata"
-                            />
-
-                            <span className="category-video-play">
-                              ↗
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    ) : project.images?.length ? (
-                      <div className="category-project-gallery">
-                        {project.images.map((image, imageIndex) => (
-                          <button
-                            key={image}
-                            type="button"
-                            className="category-project-image-button"
-                            onClick={() =>
-                              setSelectedMedia({
-                                type: "image",
-                                src: image,
-                                alt: `${project.title} project preview ${
-                                  imageIndex + 1
-                                }`,
-                              })
-                            }
-                            aria-label={`Open ${project.title} project preview ${
-                              imageIndex + 1
-                            }`}
-                          >
-                            <img
-                              src={image}
-                              alt={`${project.title} project preview ${
-                                imageIndex + 1
-                              }`}
-                            />
-                          </button>
-                        ))}
-                      </div>
-                    ) : project.image ? (
-                      <img
-                        src={project.image}
-                        alt={`${project.title} project preview`}
-                      />
-                    ) : project.video ? (
-                      <video
-                        src={project.video}
-                        muted
-                        loop
-                        autoPlay
-                        playsInline
-                        preload="metadata"
-                      />
-                    ) : (
-                      <span className="category-project-placeholder">
-                        {project.title.slice(0, 2).toUpperCase()}
+                    <div className="growth-service-row">
+                      <span className="growth-service-number">
+                        {service.number}
                       </span>
-                    )}
 
-                    <span className="visual-caption">
-                      {category.number} / ORYN STUDIO
-                    </span>
-                  </div>
+                      <h2>{service.title}</h2>
 
-                  <div className="category-project-meta">
-                    <div>
-                      <p>{project.categories}</p>
+                      <p>{service.description}</p>
 
-                      <h2>{project.title}</h2>
-
-                      <span>{project.description}</span>
+                      <span className="growth-service-arrow">
+                        <ArrowUpRight size={20} />
+                      </span>
                     </div>
+                  </Reveal>
+                ))}
+              </div>
+            </section>
 
-                    <span className="project-arrow">
-                      <ArrowUpRight size={20} />
-                    </span>
-                  </div>
-                </>
-              );
+            {/* =================================================
+                THE GROWTH LOOP
+            ================================================== */}
 
-              return (
-                <Reveal
-                  key={project.title}
-                  delay={index * 0.08}
+            <section className="growth-section growth-loop-section">
+              <div className="growth-section-header">
+                <p className="eyebrow">THE GROWTH LOOP</p>
+
+                <p className="growth-section-count">
+                  04 STEPS
+                </p>
+              </div>
+
+              <div className="growth-loop">
+                {[
+                  {
+                    number: "01",
+                    title: "ATTRACT",
+                    description:
+                      "Get discovered by the right people.",
+                    items:
+                      "SEO / PAID MEDIA / CAMPAIGNS",
+                  },
+                  {
+                    number: "02",
+                    title: "ENGAGE",
+                    description:
+                      "Give people a reason to care.",
+                    items:
+                      "CONTENT / CREATIVE / SOCIAL",
+                  },
+                  {
+                    number: "03",
+                    title: "CONVERT",
+                    description:
+                      "Turn attention into action.",
+                    items:
+                      "WEBSITES / LANDING PAGES / FUNNELS",
+                  },
+                  {
+                    number: "04",
+                    title: "OPTIMISE",
+                    description:
+                      "Learn what works. Scale it.",
+                    items:
+                      "ANALYTICS / TESTING / PERFORMANCE",
+                  },
+                ].map((step, index) => (
+                  <Reveal
+                    key={step.number}
+                    delay={index * 0.08}
+                  >
+                    <div className="growth-step">
+                      <span className="growth-step-number">
+                        {step.number}
+                      </span>
+
+                      <h2>{step.title}</h2>
+
+                      <p>{step.description}</p>
+
+                      <span className="growth-step-items">
+                        {step.items}
+                      </span>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </section>
+
+            {/* =================================================
+                THE REAL PROBLEM
+            ================================================== */}
+
+            <section className="growth-problem">
+              <Reveal>
+                <p className="eyebrow">
+                  THE REAL PROBLEM
+                </p>
+
+                <h2>
+                  MORE TRAFFIC
+                  <br />
+                  DOESN&apos;T ALWAYS MEAN
+                  <br />
+                  <em>MORE BUSINESS.</em>
+                </h2>
+
+                <p>
+                  We look beyond clicks, likes and
+                  impressions to understand where growth is
+                  getting lost — and build the system to fix
+                  it.
+                </p>
+              </Reveal>
+            </section>
+
+            {/* =================================================
+                FINAL CTA
+            ================================================== */}
+
+            <section className="growth-final-cta">
+              <Reveal>
+                <p className="eyebrow">
+                  READY TO GROW?
+                </p>
+
+                <h2>
+                  TURN ATTENTION
+                  <br />
+                  INTO <em>GROWTH.</em>
+                </h2>
+
+                <Link
+                  href="/#contact"
+                  className="growth-cta"
                 >
-                  {project.url ? (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="category-project-card"
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <div className="category-project-card">
-                      {content}
-                    </div>
-                  )}
-                </Reveal>
-              );
-            })}
+                  BOOK A CALL <ArrowUpRight size={17} />
+                </Link>
+              </Reveal>
+            </section>
           </div>
-        ) : (
-          <Reveal>
-            <div
-              className={`category-empty visual-${category.tone}`}
-            >
-              <p className="eyebrow">IN PROGRESS</p>
+        </section>
+      ) : (
+        <>
+          {/* =================================================
+              EXISTING CATEGORY HEADER
+          ================================================== */}
 
-              <h2>New work is taking shape.</h2>
+          <section className="category-work page-wrap">
+            <div className="category-work-header">
+              <p className="eyebrow">HERE IS OUR WORK</p>
 
-              <p>
-                Published {category.label.toLowerCase()} projects
-                will appear here as they launch.
+              <p className="category-work-count">
+                {category.projects.length
+                  .toString()
+                  .padStart(2, "0")}{" "}
+                {isSocial ? "ACCOUNTS" : "PROJECTS"}
               </p>
             </div>
-          </Reveal>
-        )}
-      </section>
+
+            {/* =================================================
+                PROJECTS
+            ================================================== */}
+
+            {category.projects.length > 0 ? (
+              <div
+                className={
+                  isSocial
+                    ? "social-profile-grid"
+                    : "category-project-grid"
+                }
+              >
+                {category.projects.map((project, index) => {
+                  /* -----------------------------------------
+                     SOCIAL PROFILE CARD
+                  ----------------------------------------- */
+
+                  if (isSocial) {
+                    const socialCard = (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-profile-card"
+                        data-cursor="social"
+                      >
+                        <div className="social-profile-image">
+                          {project.image ? (
+                            <>
+                              <img
+                                src={project.image}
+                                alt={`${project.title} Instagram profile`}
+                              />
+
+                              <span
+                                className="social-stats-blur"
+                                aria-hidden="true"
+                              />
+                            </>
+                          ) : (
+                            <span className="category-project-placeholder">
+                              {project.title
+                                .slice(0, 2)
+                                .toUpperCase()}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="social-profile-info">
+                          <div className="social-profile-info-top">
+                            <div>
+                              <p className="social-profile-label">
+                                INSTAGRAM
+                              </p>
+
+                              <h2>{project.title}</h2>
+                            </div>
+
+                            <span className="social-profile-arrow">
+                              <ArrowUpRight size={20} />
+                            </span>
+                          </div>
+
+                          <div className="social-profile-bottom">
+                            <span className="social-profile-handle">
+                              {project.url
+                                ?.replace(
+                                  "https://www.instagram.com/",
+                                  "@"
+                                )
+                                .replace("/", "")}
+                            </span>
+
+                            <span className="social-profile-visit">
+                              Visit Profile
+                              <ArrowUpRight size={15} />
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    );
+
+                    return (
+                      <Reveal
+                        key={project.title}
+                        delay={index * 0.08}
+                      >
+                        {socialCard}
+                      </Reveal>
+                    );
+                  }
+
+                  /* -----------------------------------------
+                     NORMAL DIGITAL / VISUAL / CONTENT CARD
+                  ----------------------------------------- */
+
+                  const content = (
+                    <>
+                      <div
+                        className={`category-project-visual visual-${category.tone}`}
+                      >
+                        {project.videos?.length ? (
+                          <div className="category-project-video-gallery">
+                            {project.videos.map(
+                              (video, videoIndex) => (
+                                <button
+                                  key={video}
+                                  type="button"
+                                  className="category-project-video-button"
+                                  onClick={() =>
+                                    setSelectedMedia({
+                                      type: "video",
+                                      src: video,
+                                      alt: `${project.title} video preview ${
+                                        videoIndex + 1
+                                      }`,
+                                    })
+                                  }
+                                  aria-label={`Open ${project.title} video ${
+                                    videoIndex + 1
+                                  }`}
+                                >
+                                  <video
+                                    src={video}
+                                    muted
+                                    loop
+                                    autoPlay
+                                    playsInline
+                                    preload="metadata"
+                                  />
+
+                                  <span className="category-video-play">
+                                    ↗
+                                  </span>
+                                </button>
+                              )
+                            )}
+                          </div>
+                        ) : project.images?.length ? (
+                          <div className="category-project-gallery">
+                            {project.images.map(
+                              (image, imageIndex) => (
+                                <button
+                                  key={image}
+                                  type="button"
+                                  className="category-project-image-button"
+                                  onClick={() =>
+                                    setSelectedMedia({
+                                      type: "image",
+                                      src: image,
+                                      alt: `${project.title} project preview ${
+                                        imageIndex + 1
+                                      }`,
+                                    })
+                                  }
+                                  aria-label={`Open ${project.title} project preview ${
+                                    imageIndex + 1
+                                  }`}
+                                >
+                                  <img
+                                    src={image}
+                                    alt={`${project.title} project preview ${
+                                      imageIndex + 1
+                                    }`}
+                                  />
+                                </button>
+                              )
+                            )}
+                          </div>
+                        ) : project.image ? (
+                          <img
+                            src={project.image}
+                            alt={`${project.title} project preview`}
+                          />
+                        ) : project.video ? (
+                          <video
+                            src={project.video}
+                            muted
+                            loop
+                            autoPlay
+                            playsInline
+                            preload="metadata"
+                          />
+                        ) : (
+                          <span className="category-project-placeholder">
+                            {project.title
+                              .slice(0, 2)
+                              .toUpperCase()}
+                          </span>
+                        )}
+
+                        <span className="visual-caption">
+                          {category.number} / ORYN STUDIO
+                        </span>
+                      </div>
+
+                      <div className="category-project-meta">
+                        <div>
+                          <p>{project.categories}</p>
+
+                          <h2>{project.title}</h2>
+
+                          <span>{project.description}</span>
+                        </div>
+
+                        <span className="project-arrow">
+                          <ArrowUpRight size={20} />
+                        </span>
+                      </div>
+                    </>
+                  );
+
+                  return (
+                    <Reveal
+                      key={project.title}
+                      delay={index * 0.08}
+                    >
+                      {project.url ? (
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="category-project-card"
+                        >
+                          {content}
+                        </a>
+                      ) : (
+                        <div className="category-project-card">
+                          {content}
+                        </div>
+                      )}
+                    </Reveal>
+                  );
+                })}
+              </div>
+            ) : (
+              /* -----------------------------------------
+                 EMPTY STATE
+              ----------------------------------------- */
+
+              <Reveal>
+                <div
+                  className={`category-empty visual-${category.tone}`}
+                >
+                  <p className="eyebrow">IN PROGRESS</p>
+
+                  <h2>New work is taking shape.</h2>
+
+                  <p>
+                    Published{" "}
+                    {category.label.toLowerCase()} projects
+                    will appear here as they launch.
+                  </p>
+                </div>
+              </Reveal>
+            )}
+          </section>
+        </>
+      )}
+
+      {/* =====================================================
+          IMAGE / VIDEO LIGHTBOX
+      ====================================================== */}
 
       {selectedMedia && (
         <div
@@ -272,13 +590,17 @@ export function CategoryPortfolioPage({ slug }: { slug: string }) {
               controls
               autoPlay
               playsInline
-              onClick={(event) => event.stopPropagation()}
+              onClick={(event) =>
+                event.stopPropagation()
+              }
             />
           ) : (
             <img
               src={selectedMedia.src}
               alt={selectedMedia.alt}
-              onClick={(event) => event.stopPropagation()}
+              onClick={(event) =>
+                event.stopPropagation()
+              }
             />
           )}
         </div>

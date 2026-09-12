@@ -17,7 +17,7 @@ export function Navbar() {
   return (
     <>
       <header className="nav-shell">
-        <a href="#top" className="brand-mark" aria-label="ORYN Studio home">
+        <a href="/" className="brand-mark" aria-label="ORYN Studio home">
           ORYN<span>®</span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">

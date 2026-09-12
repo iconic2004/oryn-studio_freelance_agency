@@ -8,6 +8,10 @@ import visualImageFour from "@/app/assets/visual/Screenshot 2026-09-04 224803.pn
 import visualCampaignPoster from "@/app/assets/visual/campaign poster.jpg";
 import visualCampaignPosterTwo from "@/app/assets/visual/campaign poster2.jpg";
 import visualStory from "@/app/assets/visual/story.png";
+import socialClutch from "@/app/social/IMG_8871.png";
+import socialKnownStrangers from "@/app/social/IMG_8872.png";
+import socialTrident from "@/app/social/IMG_8873.png";
+import socialFire5 from "@/app/social/IMG_8874.png";
 
 export const services = [
   { number: "01", label: "DIGITAL", slug: "digital", title: "Websites & digital experiences engineered to perform.", tone: "lavender" },
@@ -129,22 +133,115 @@ export const portfolioCategories: Record<string, PortfolioCategory> = {
     },
   ],
 },
-  social: {
+    social: {
     number: "04",
     label: "SOCIAL",
     title: "Social / Management",
-    description: "Social strategy, content systems and account management that keep brands moving.",
+    description:
+      "Social strategy, content systems and account management that keep brands moving.",
     tone: "sky",
-    projects: [],
+    projects: [
+      {
+        title: "Clutch.GG",
+        description:
+          "Social media management and content created to keep the gaming brand active and engaging.",
+        categories: "Social Media Management / Content / Gaming",
+        image: socialClutch.src,
+        url: "https://www.instagram.com/clutchg.g/",
+        type: "Instagram Management",
+      },
+      {
+        title: "KnownStrangers",
+        description:
+          "Social content and management built around a sharper fashion and lifestyle identity.",
+        categories: "Social Media Management / Fashion / Content",
+        image: socialKnownStrangers.src,
+        url: "https://www.instagram.com/knownstrangers.in/",
+        type: "Instagram Management",
+      },
+      {
+        title: "Trident Gaming Cafe",
+        description:
+          "Social media content and management designed to keep the gaming community engaged.",
+        categories: "Social Media Management / Gaming / Content",
+        image: socialTrident.src,
+        url: "https://www.instagram.com/trident_gaming_cafe/",
+        type: "Instagram Management",
+      },
+      {
+        title: "Fire5 Esports",
+        description:
+          "Social media management and creative content for an esports-focused brand.",
+        categories: "Social Media Management / Esports / Content",
+        image: socialFire5.src,
+        url: "https://www.instagram.com/fire5esports/",
+        type: "Instagram Management",
+      },
+    ],
   },
-  growth: {
-    number: "05",
-    label: "GROWTH",
-    title: "Growth / Marketing",
-    description: "Campaigns and marketing systems designed to turn visibility into growth.",
-    tone: "yellow",
-    projects: [],
-  },
+ growth: {
+  number: "05",
+  label: "GROWTH",
+  title: "Growth / Marketing",
+  description:
+    "Campaigns and marketing systems designed to turn visibility into growth.",
+  tone: "yellow",
+  projects: [],
+
+  growthServices: [
+    {
+      number: "01",
+      title: "Performance Marketing",
+      description:
+        "Paid campaigns built to reach the right audience, generate demand and drive measurable action.",
+    },
+    {
+      number: "02",
+      title: "SEO & Organic Growth",
+      description:
+        "Search strategies that help your brand become easier to discover and harder to forget.",
+    },
+    {
+      number: "03",
+      title: "Conversion & Funnels",
+      description:
+        "Landing pages, funnels and conversion systems designed to turn attention into action.",
+    },
+    {
+      number: "04",
+      title: "Campaign Strategy",
+      description:
+        "Campaigns built around the right audience, message, creative and channel.",
+    },
+  ],
+
+  growthSteps: [
+    {
+      number: "01",
+      title: "ATTRACT",
+      description: "Get discovered by the right people.",
+      items: "SEO / PAID MEDIA / CAMPAIGNS",
+    },
+    {
+      number: "02",
+      title: "ENGAGE",
+      description: "Give people a reason to care.",
+      items: "CONTENT / CREATIVE / SOCIAL",
+    },
+    {
+      number: "03",
+      title: "CONVERT",
+      description: "Turn attention into action.",
+      items: "WEBSITES / LANDING PAGES / FUNNELS",
+    },
+    {
+      number: "04",
+      title: "OPTIMISE",
+      description: "Learn what works. Scale it.",
+      items: "ANALYTICS / TESTING / PERFORMANCE",
+    },
+  ],
+},
 };
 
 export const projects = [
@@ -160,3 +257,5 @@ export const process = [
   ["04", "BUILD", "We bring the experience to life using modern technology."],
   ["05", "LAUNCH", "We launch, measure and improve."],
 ] as const;
+
+
