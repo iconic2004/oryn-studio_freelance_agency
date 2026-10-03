@@ -182,7 +182,6 @@ export const portfolioCategories: Record<string, PortfolioCategory> = {
           "/assets/content/Video-53016.mp4",
           "/assets/content/Video-60071.mp4",
           "/assets/content/Video-70834.mp4",
-          "/assets/content/Video-87304.mp4",
           "/assets/content/content-10.mp4",
           "/assets/content/content-11.mp4",
           "/assets/content/content-12.mp4",
