@@ -15,6 +15,8 @@ export function ContactSection() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
 
   const updateField = (field: keyof FormValues, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
@@ -40,15 +42,53 @@ export function ContactSection() {
     return nextErrors;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
-    if (!Object.keys(nextErrors).length) setSubmitted(true);
+    if (Object.keys(nextErrors).length) return;
+
+    setIsSubmitting(true);
+    setSubmissionError("");
+    try {
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+      if (!accessKey || accessKey === "YOUR_ACCESS_KEY_HERE") {
+        setSubmissionError("The contact form is not configured yet. Please try again later.");
+        return;
+      }
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New Project Inquiry from ${values.name}`,
+          from_name: "ORYN Studio Website",
+          name: values.name,
+          company: values.company,
+          email: values.email,
+          phone: values.phone,
+          selected_services: values.selectedServices.join(", "),
+          message: values.message,
+        }),
+      });
+      const result = (await response.json()) as { success?: boolean; message?: string };
+
+      if (!response.ok || !result.success) {
+        setSubmissionError(result.message || "We couldn't send your message. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setSubmissionError("We couldn't reach the server. Check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
-    return <section id="contact" className="contact-section contact-success"><div className="contact-success-inner page-wrap"><p className="eyebrow contact-eyebrow">06 / YOUR NEXT MOVE</p><div><AnimatedText text="Thanks for reaching out." /><p>We&apos;ll get back to you shortly.</p><button type="button" className="button button-light" onClick={() => { setSubmitted(false); setValues(initialValues); }}>Send another message <RotateCcw size={15} /></button></div></div></section>;
+    return <section id="contact" className="contact-section contact-success"><div className="contact-success-inner page-wrap"><p className="eyebrow contact-eyebrow">06 / YOUR NEXT MOVE</p><div><AnimatedText text="Thanks for reaching out." /><p>We&apos;ll get back to you shortly.</p><button type="button" className="button button-light" onClick={() => { setSubmitted(false); setValues(initialValues); setErrors({}); setSubmissionError(""); }}>Send another message <RotateCcw size={15} /></button></div></div></section>;
   }
 
   return <section id="contact" className="contact-section contact-form-section">
@@ -61,8 +101,8 @@ export function ContactSection() {
         <Field label="Phone" id="phone" type="tel" value={values.phone} placeholder="+91 XXXXX XXXXX" onChange={(value) => updateField("phone", value)} />
       </div>
       <motion.fieldset className="service-picker" variants={formReveal}><legend>I&apos;m interested in:</legend><div className="service-chips">{serviceOptions.map((service) => { const selected = values.selectedServices.includes(service); return <label key={service} className={`service-chip ${selected ? "is-selected" : ""}`}><input type="checkbox" checked={selected} onChange={() => toggleService(service)} /><span>{selected && <Check size={13} />}{service}</span></label>; })}</div>{errors.services && <p className="form-error">{errors.services}</p>}</motion.fieldset>
-      <motion.div className="form-field" variants={formReveal}><label htmlFor="message">What can we help you with?</label><textarea id="message" value={values.message} onChange={(event) => updateField("message", event.target.value)} placeholder="Tell us a little about your project..." aria-invalid={Boolean(errors.message)} />{errors.message && <p className="form-error">{errors.message}</p>}</motion.div>
-      <motion.div className="form-submit" variants={formReveal}><button type="submit" className="button button-light" data-cursor="start">Start a Project <ArrowUpRight size={17} /></button><p>Prefer a quick conversation? <a href="#" data-cursor="call">Book a Call <ArrowUpRight size={14} /></a></p></motion.div>
+      <motion.div className="form-field" variants={formReveal}><label htmlFor="message">What can we help you with?</label><textarea id="message" name="message" value={values.message} onChange={(event) => updateField("message", event.target.value)} placeholder="Tell us a little about your project..." aria-invalid={Boolean(errors.message)} />{errors.message && <p className="form-error">{errors.message}</p>}</motion.div>
+      <motion.div className="form-submit" variants={formReveal}><button type="submit" className="button button-light" data-cursor="start" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Start a Project"} <ArrowUpRight size={17} /></button>{submissionError && <p className="form-error" role="alert">{submissionError}</p>}<p>Prefer a quick conversation? <a href="#" data-cursor="call">Book a Call <ArrowUpRight size={14} /></a></p></motion.div>
     </motion.form></div>
   </section>;
 }
@@ -70,5 +110,5 @@ export function ContactSection() {
 const formReveal = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } } };
 
 function Field({ label, id, type = "text", value, placeholder, error, onChange }: { label: string; id: string; type?: string; value: string; placeholder: string; error?: string; onChange: (value: string) => void }) {
-  return <motion.div className="form-field" variants={formReveal}><label htmlFor={id}>{label}</label><input id={id} type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} aria-invalid={Boolean(error)} />{error && <p className="form-error">{error}</p>}</motion.div>;
+  return <motion.div className="form-field" variants={formReveal}><label htmlFor={id}>{label}</label><input id={id} name={id} type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} aria-invalid={Boolean(error)} />{error && <p className="form-error">{error}</p>}</motion.div>;
 }

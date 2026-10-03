@@ -9,6 +9,7 @@ const geist = Geist({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "ORYN Studio — We Build What Makes You Stand Out.",
   description: "ORYN Studio builds websites, brands, content and digital experiences that help businesses stand out.",
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
   openGraph: {
     title: "ORYN Studio — We Build What Makes You Stand Out.",
     description: "Creative digital work for brands that refuse to blend in.",
