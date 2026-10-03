@@ -44,6 +44,8 @@ export function ContactSection() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isSubmitting) return;
+
     const nextErrors = validate();
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
@@ -51,9 +53,9 @@ export function ContactSection() {
     setIsSubmitting(true);
     setSubmissionError("");
     try {
-      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY?.trim();
       if (!accessKey || accessKey === "YOUR_ACCESS_KEY_HERE") {
-        setSubmissionError("The contact form is not configured yet. Please try again later.");
+        setSubmissionError("Add your Web3Forms key to NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in .env.local, then restart the dev server.");
         return;
       }
 
